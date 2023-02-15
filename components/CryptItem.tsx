@@ -16,15 +16,18 @@ const CryptItem = ({ card }: Props) => {
         <Text style={itemStyles.name}>{card._name}</Text>
         <Text>Group: {card.group}</Text>
       </View>
-      <View style={itemStyles.clan}>
-        {card.clans && card.clans.map((clan) => getClanIcon(clan))}
-      </View>
-      <View style={itemStyles.discipline}>
-        {card.disciplines &&
-          card.disciplines.map((discipline) => getDisciplineIcon(discipline))}
-      </View>
-      <View style={itemStyles.capacity}>
-        <Text style={itemStyles.capacityNumber}>{card.capacity}</Text>
+      <View style={itemStyles.right}>
+        <View style={itemStyles.clan}>
+          {card.clans && card.clans.map((clan) => getClanIcon(clan))}
+        </View>
+        <View style={itemStyles.discipline}>
+          {card.disciplines &&
+            card.disciplines.map((discipline) => getDisciplineIcon(discipline))}
+        </View>
+
+        <View style={itemStyles.capacity}>
+          <Text style={itemStyles.capacityNumber}>{card.capacity}</Text>
+        </View>
       </View>
     </View>
   );

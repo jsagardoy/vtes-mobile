@@ -4,23 +4,28 @@ export const itemStyles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: 45,
-    marginTop: 10,
+    alignItems: 'center',
+    paddingTop: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#bcbcbc',
   },
   name: {
     fontSize: 18,
     fontWeight: 'bold',
+    flexWrap: 'wrap',
+    width: 150,
   },
   left: {
     flexDirection: 'column',
     justifyContent: 'center',
+    width: 150,
   },
   right: {
+    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
-
   capacity: {
     flexDirection: 'row',
     marginVertical: 4,
@@ -36,14 +41,19 @@ export const itemStyles = StyleSheet.create({
     borderStyle: 'solid',
   },
   capacityNumber: {
+    flexDirection: 'row',
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
   },
-  clan: { justifyContent: 'center' },
+  clan: {
+    flexDirection: 'row',
+    flex: 1,
+    marginLeft: 14,
+  },
   discipline: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1,
+    flexWrap: 'wrap',
     flexDirection: 'row',
   },
 });
