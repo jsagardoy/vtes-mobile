@@ -1,6 +1,6 @@
-import CardList from './components/CardList';
+import Main from './components/Main';
 import React from 'react';
 
 export default function App() {
-  return <CardList />;
+  return <Main />;
 }

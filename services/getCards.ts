@@ -1,7 +1,8 @@
-import { Card } from '../types/data.types';
+import { Card, CardType } from '../types/data.types';
+
 import { getCardTotalInfo } from './getCardTotalInfo';
 
-const getCards = async (cardType: 'crypt' | 'library') => {
+const getCards = async (cardType: CardType) => {
   const body = {
     type: [cardType],
   };

@@ -68,3 +68,5 @@ export interface Links {
   name: string;
   url: string;
 }
+
+export type CardType = 'crypt' | 'library';
