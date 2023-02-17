@@ -20,7 +20,7 @@ const getCards = async (cardType: CardType) => {
     const values: string[] = await data.json();
     console.log(values.slice(0, 2));
     const result = await Promise.all(
-      values.slice(0, 4).map(async (elem) => await getCardTotalInfo(elem))
+      values.slice(0, 35).map(async (elem) => await getCardTotalInfo(elem))
     );
 
     return result;

@@ -10,12 +10,12 @@ export const getDisciplineIcon = (discipline: string) => {
     .toLocaleLowerCase()
     .replaceAll(' ', '')}.png`;
   return (
-    <Text style={styles.container}>
-      <Image key={discipline} style={styles.logo} source={{ uri: URL }} />
+    <Text key={discipline} style={styles.container}>
+      <Image style={styles.logo} source={{ uri: URL }} />
     </Text>
   );
 };
 const styles = StyleSheet.create({
-  container: {},
-  logo: {},
+  container: { flexDirection: 'column' },
+  logo: { width: 35, height: 35 },
 });

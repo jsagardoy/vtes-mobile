@@ -26,6 +26,9 @@ export const itemStyles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
+  type: {
+    marginLeft: 10,
+  },
   capacity: {
     flexDirection: 'row',
     marginVertical: 4,
@@ -55,5 +58,12 @@ export const itemStyles = StyleSheet.create({
     flex: 1,
     flexWrap: 'wrap',
     flexDirection: 'row',
+  },
+  disciplineLibrary: {
+    maxWidth: 35,
+  },
+  cost: {
+    width: 45,
+    maxWidth: 45,
   },
 });

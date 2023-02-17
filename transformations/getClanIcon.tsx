@@ -12,10 +12,9 @@ export const getClanIcon = (clan: string) => {
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  logo: { alignSelf: 'center' },
+  logo: { alignSelf: 'center', width: 35, height: 35 },
 });
