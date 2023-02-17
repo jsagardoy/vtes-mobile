@@ -5,7 +5,7 @@ export const getClanIcon = (clan: string) => {
     .toLocaleLowerCase()
     .replaceAll(' ', '')}.png`;
   return (
-    <Text style={styles.container}>
+    <Text key={clan} style={styles.container}>
       <Image key={clan} style={styles.logo} source={{ uri: URL }} />
     </Text>
   );

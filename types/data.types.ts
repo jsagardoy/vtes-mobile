@@ -70,3 +70,4 @@ export interface Links {
 }
 
 export type CardType = 'crypt' | 'library';
+export type CardCostType = 'blood' | 'pool' | 'conviction';

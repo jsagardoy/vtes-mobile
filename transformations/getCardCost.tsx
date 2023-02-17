@@ -1,11 +1,15 @@
 import { Image, StyleSheet, Text } from 'react-native';
 
-export const getTypeIcon = (cardType: string, index: number) => {
+import { CardCostType } from '../types/data.types';
+
+export const getCardCostIcon = (cost: string, costType: CardCostType) => {
   const data =
-    cardType === 'Action Modifier' ? 'modifier' : cardType.toLocaleLowerCase();
+    costType === 'conviction'
+      ? costType
+      : costType.concat(cost.toLocaleLowerCase());
   const URL = `https://static.krcg.org/png_wb/icon/${data}.png`;
   return (
-    <Text key={index} style={styles.container}>
+    <Text style={styles.container}>
       <Image style={styles.logo} source={{ uri: URL }} />
     </Text>
   );
@@ -16,5 +20,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  logo: { flex: 1, width: 35, height: 35 },
+  logo: { flex: 1, width: 35, height: 35, maxHeight: 35, maxWidth: 35 },
 });

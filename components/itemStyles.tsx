@@ -16,18 +16,21 @@ export const itemStyles = StyleSheet.create({
     width: 150,
   },
   left: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    width: 150,
+    flexDirection: 'row',
   },
   right: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   type: {
-    marginLeft: 10,
+    marginRight: 4,
+    justifyContent: 'center',
+  },
+  nameContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    width: 150,
   },
   capacity: {
     flexDirection: 'row',
@@ -51,8 +54,12 @@ export const itemStyles = StyleSheet.create({
   },
   clan: {
     flexDirection: 'row',
-    flex: 1,
     marginLeft: 14,
+    marginRight: 14,
+    width: 35,
+    maxWidth: 35,
+    height: 35,
+    maxHeight: 35,
   },
   discipline: {
     flex: 1,
@@ -61,9 +68,16 @@ export const itemStyles = StyleSheet.create({
   },
   disciplineLibrary: {
     maxWidth: 35,
+    width: 35,
   },
   cost: {
-    width: 45,
-    maxWidth: 45,
+    width: 35,
+    maxWidth: 35,
+    height: 35,
+    maxHeight: 35,
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'center',
   },
 });

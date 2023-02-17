@@ -12,7 +12,7 @@ interface Props {
 const CryptItem = ({ card }: Props) => {
   return (
     <View style={itemStyles.container}>
-      <View style={itemStyles.left}>
+      <View style={itemStyles.nameContainer}>
         <Text style={itemStyles.name}>{card.printed_name}</Text>
         <Text>Group: {card.group}</Text>
       </View>
