@@ -9,6 +9,7 @@ import React, { useState } from 'react';
 
 import { Card } from '../types/data.types';
 import ListItem from './ListItem';
+import useList from '../hooks/useListActions';
 
 interface Props {
   list: Card[];
@@ -19,7 +20,13 @@ const List = ({ list, handleMore }: Props) => {
     <SafeAreaView style={styles.container}>
       <FlatList
         data={list}
-        renderItem={({ item }) => <ListItem key={item.id} card={item} />}
+        renderItem={({ item, index }) => (
+          <ListItem
+            key={item.id}
+            card={item}
+            index={index}
+          />
+        )}
         keyExtractor={(item) => String(item.id)}
         onEndReached={handleMore}
         onEndReachedThreshold={3}

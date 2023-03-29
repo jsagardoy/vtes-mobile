@@ -1,9 +1,10 @@
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Card, CardType } from '../types/data.types';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import List from './List';
 import getCards from '../services/getCards';
+import useList from '../hooks/useList'
 
 interface Props {
   cardType: CardType;
@@ -11,7 +12,7 @@ interface Props {
 const CardList = ({ cardType }: Props) => {
   const amount: number = 100;
   const [loading, setLoading] = useState<boolean>(false);
-  const [list, setList] = useState<Card[]>([]);
+  const { list, setList } = useList();
   const [start, setStart] = useState<number>(0);
   const [end, setEnd] = useState<number>(amount);
 

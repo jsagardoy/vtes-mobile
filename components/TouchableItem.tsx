@@ -13,8 +13,6 @@ import React, { useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { Card } from '../types/data.types';
 import CardInfo from './CardInfo';
-import { getClanIcon } from '../transformations/getClanIcon';
-import { getDisciplineIcon } from '../transformations/getDisciplineIcon';
 
 interface Props {
   children: React.ReactElement;
@@ -65,13 +63,31 @@ const TouchableItem = ({ children, card }: Props) => {
               backgroundColor={'transparent'}
             />
           </View>
-          <View id='imageContainer' style={styles.imageContainer}>
-            <Image
-              id='image'
-              alt='card image'
-              style={styles.image}
-              source={{ uri: card.url }}
-            />
+          <View id='imageContainer'>
+            <View style={styles.arrowsContainer}>
+              <AntDesign.Button
+                name='left'
+                size={24}
+                color='darkgray'
+                backgroundColor={'transparent'}
+                onPress={showInfo}
+                /*  disabled={isFirst()} */
+              />
+              <Image
+                id='image'
+                alt='card image'
+                style={styles.image}
+                source={{ uri: card.url }}
+              />
+              <AntDesign.Button
+                name='right'
+                size={24}
+                color='darkgray'
+                backgroundColor={'transparent'}
+                onPress={showInfo}
+                /* disabled={isLast()} */
+              />
+            </View>
           </View>
         </View>
       </Modal>
@@ -126,11 +142,10 @@ const styles = StyleSheet.create({
   },
   image: {
     resizeMode: 'contain',
-    height: 550,
-    width: 400,
+    height: 500,
+    width: 350,
     opacity: 1,
   },
-  imageContainer: {},
   actionBar: {
     flex: 1,
     maxHeight: 45,
@@ -148,10 +163,17 @@ const styles = StyleSheet.create({
     backgroundColor: 'darkgray',
     paddingTop: 2,
     paddingLeft: 1,
-    minHeight: 550,
-    maxHeight: 550,
+    minHeight: 500,
+    maxHeight: 500,
     overflowY: 'scroll',
-    minWidth: 400,
+    maxWidth: 350,
+    minWidth: 350,
+  },
+  arrowsContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 });
 export default TouchableItem;

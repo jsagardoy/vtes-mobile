@@ -11,6 +11,8 @@ import { itemStyles } from './itemStyles';
 
 interface Props {
   card: Card;
+  index: number;
+
 }
 const CryptItem = ({ card }: Props) => {
   return (
