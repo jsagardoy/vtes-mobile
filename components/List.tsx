@@ -9,7 +9,6 @@ import React, { useState } from 'react';
 
 import { Card } from '../types/data.types';
 import ListItem from './ListItem';
-import useList from '../hooks/useListActions';
 
 interface Props {
   list: Card[];
