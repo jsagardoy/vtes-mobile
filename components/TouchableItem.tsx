@@ -8,11 +8,12 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { AntDesign } from '@expo/vector-icons';
 import { Card } from '../types/data.types';
 import CardInfo from './CardInfo';
+import useList from '../hooks/useList';
 
 interface Props {
   children: React.ReactElement;
@@ -22,6 +23,17 @@ interface Props {
 const TouchableItem = ({ children, card }: Props) => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [modalInfoVisible, setModalInfoVisible] = useState<boolean>(false);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [newCard, setNewCard] = useState<Card>(card);
+
+  const { list } = useList();
+
+  useEffect(() => {
+    const index = list.findIndex((elem) => elem.id === card.id);
+    if (index !== -1) {
+      setCurrentIndex(index);
+    }
+  }, []);
 
   const handleCard = () => {
     setModalVisible((prev) => !prev);
@@ -36,6 +48,22 @@ const TouchableItem = ({ children, card }: Props) => {
     setModalInfoVisible((prev) => !prev);
     setModalVisible((prev) => !prev);
   };
+  const handleBack = () => {
+    const newIndex = currentIndex <= 0 ? currentIndex : currentIndex - 1;
+    setCurrentIndex(newIndex);
+    const backCard = list[newIndex];
+    setNewCard(backCard);
+  };
+  const handleNext = () => {
+    const newIndex =
+      currentIndex >= list.length - 1 ? currentIndex : currentIndex + 1;
+    setCurrentIndex(newIndex);
+    const backCard = list[newIndex];
+    setNewCard(backCard);
+  };
+  const isFirst = (): boolean => currentIndex === 0;
+  const isLast = (): boolean => currentIndex === list.length - 1;
+
   return (
     <View>
       <Modal
@@ -70,22 +98,22 @@ const TouchableItem = ({ children, card }: Props) => {
                 size={24}
                 color='darkgray'
                 backgroundColor={'transparent'}
-                onPress={showInfo}
-                /*  disabled={isFirst()} */
+                onPress={handleBack}
+                disabled={isFirst()}
               />
               <Image
                 id='image'
                 alt='card image'
                 style={styles.image}
-                source={{ uri: card.url }}
+                source={{ uri: newCard.url }}
               />
               <AntDesign.Button
                 name='right'
                 size={24}
                 color='darkgray'
                 backgroundColor={'transparent'}
-                onPress={showInfo}
-                /* disabled={isLast()} */
+                onPress={handleNext}
+                disabled={isLast()}
               />
             </View>
           </View>
@@ -117,7 +145,7 @@ const TouchableItem = ({ children, card }: Props) => {
               backgroundColor={'transparent'}
             />
           </View>
-          <CardInfo card={card} />
+          <CardInfo card={newCard} />
         </View>
       </Modal>
 
