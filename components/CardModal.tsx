@@ -1,6 +1,7 @@
 import { Modal, StatusBar, StyleSheet, View } from 'react-native';
 
 import { AntDesign } from '@expo/vector-icons';
+import GestureRecognizer from 'react-native-swipe-gestures';
 import React from 'react';
 
 interface Props {
@@ -25,52 +26,60 @@ const CardModal = ({
   isLast,
 }: Props) => {
   return (
-    <Modal
-      animationType='slide'
-      transparent={true}
-      visible={visible}
-      onRequestClose={onRequestClose}
+    <GestureRecognizer
+      style={{ flex: 1 }}
+      onSwipeUp={onRequestClose}
+      onSwipeDown={onRequestClose}
+      onSwipeLeft={handleBack}
+      onSwipeRight={handleNext}
     >
-      <View id='modal' style={styles.modal}>
-        <View id='actionbar' style={styles.actionBar}>
-          <AntDesign.Button
-            name='infocirlceo'
-            size={24}
-            color='black'
-            backgroundColor={'transparent'}
-            onPress={showInfo}
-          />
-          <AntDesign.Button
-            onPress={onRequestClose}
-            name='close'
-            size={20}
-            color='black'
-            backgroundColor={'transparent'}
-          />
-        </View>
-        <View id='imageContainer'>
-          <View style={styles.arrowsContainer}>
+      <Modal
+        animationType='slide'
+        transparent={true}
+        visible={visible}
+        onRequestClose={onRequestClose}
+      >
+        <View id='modal' style={styles.modal}>
+          <View id='actionbar' style={styles.actionBar}>
             <AntDesign.Button
-              name='left'
+              name='infocirlceo'
               size={24}
-              color='darkgray'
+              color='black'
               backgroundColor={'transparent'}
-              onPress={handleBack}
-              disabled={isFirst()}
+              onPress={showInfo}
             />
-            {children}
             <AntDesign.Button
-              name='right'
-              size={24}
-              color='darkgray'
+              onPress={onRequestClose}
+              name='close'
+              size={20}
+              color='black'
               backgroundColor={'transparent'}
-              onPress={handleNext}
-              disabled={isLast()}
             />
           </View>
+          <View id='imageContainer'>
+            <View style={styles.arrowsContainer}>
+              <AntDesign.Button
+                name='left'
+                size={24}
+                color='darkgray'
+                backgroundColor={'transparent'}
+                onPress={handleBack}
+                disabled={isFirst()}
+              />
+              {children}
+              <AntDesign.Button
+                name='right'
+                size={24}
+                color='darkgray'
+                backgroundColor={'transparent'}
+                onPress={handleNext}
+                disabled={isLast()}
+              />
+            </View>
+          </View>
         </View>
-      </View>
-    </Modal>
+      </Modal>
+    </GestureRecognizer>
   );
 };
 

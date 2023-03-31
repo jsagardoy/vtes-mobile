@@ -1,16 +1,12 @@
 import {
-  Button,
   Image,
-  Modal,
   StatusBar,
   StyleSheet,
-  Text,
   TouchableHighlight,
   View,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 
-import { AntDesign } from '@expo/vector-icons';
 import { Card } from '../types/data.types';
 import CardInfo from './CardInfo';
 import CardModal from './CardModal';
