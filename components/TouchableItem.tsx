@@ -13,6 +13,7 @@ import React, { useEffect, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { Card } from '../types/data.types';
 import CardInfo from './CardInfo';
+import CardModal from './CardModal';
 import useList from '../hooks/useList';
 
 interface Props {
@@ -66,88 +67,33 @@ const TouchableItem = ({ children, card }: Props) => {
 
   return (
     <View>
-      <Modal
-        animationType='slide'
-        transparent={true}
+      <CardModal
         visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View id='modal' style={styles.modal}>
-          <View id='actionbar' style={styles.actionBar}>
-            <AntDesign.Button
-              name='infocirlceo'
-              size={24}
-              color='black'
-              backgroundColor={'transparent'}
-              onPress={showInfo}
-            />
-            <AntDesign.Button
-              onPress={handleClose}
-              name='close'
-              size={20}
-              color='black'
-              backgroundColor={'transparent'}
-            />
-          </View>
-          <View id='imageContainer'>
-            <View style={styles.arrowsContainer}>
-              <AntDesign.Button
-                name='left'
-                size={24}
-                color='darkgray'
-                backgroundColor={'transparent'}
-                onPress={handleBack}
-                disabled={isFirst()}
-              />
-              <Image
-                id='image'
-                alt='card image'
-                style={styles.image}
-                source={{ uri: newCard.url }}
-              />
-              <AntDesign.Button
-                name='right'
-                size={24}
-                color='darkgray'
-                backgroundColor={'transparent'}
-                onPress={handleNext}
-                disabled={isLast()}
-              />
-            </View>
-          </View>
-        </View>
-      </Modal>
-
-      <Modal
-        animationType='slide'
-        transparent={true}
+        onRequestClose={handleClose}
+        showInfo={showInfo}
+        handleNext={handleNext}
+        handleBack={handleBack}
+        children={
+          <Image
+            id='image'
+            alt='card image'
+            style={styles.image}
+            source={{ uri: newCard.url }}
+          />
+        }
+        isFirst={isFirst}
+        isLast={isLast}
+      />
+      <CardModal
         visible={modalInfoVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View id='modal' style={styles.modal}>
-          <View id='actionbar' style={styles.actionBar}>
-            <AntDesign.Button
-              name='infocirlceo'
-              size={24}
-              color='black'
-              backgroundColor={'transparent'}
-              onPress={showInfo}
-            />
-            <AntDesign.Button
-              onPress={handleClose}
-              name='close'
-              size={20}
-              color='black'
-              backgroundColor={'transparent'}
-            />
-          </View>
-          <CardInfo card={newCard} />
-        </View>
-      </Modal>
+        onRequestClose={handleClose}
+        showInfo={showInfo}
+        handleNext={handleNext}
+        handleBack={handleBack}
+        children={<CardInfo card={newCard} />}
+        isFirst={isFirst}
+        isLast={isLast}
+      />
 
       <TouchableHighlight
         activeOpacity={0.6}
