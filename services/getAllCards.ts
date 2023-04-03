@@ -1,8 +1,9 @@
 import { Card, CardType } from '../types/data.types';
 
+import { Promise } from 'bluebird';
 import { getCardTotalInfo } from './getCardTotalInfo';
 
-const getCards = async (cardType: CardType, start: number, end: number) => {
+const getAllCards = async (cardType: CardType) => {
   const body = {
     type: [cardType],
   };
@@ -18,14 +19,17 @@ const getCards = async (cardType: CardType, start: number, end: number) => {
   try {
     const data = await fetch(URL, opt);
     const values: string[] = await data.json();
-
-    const result = await Promise.all(
-      values.slice(start, end).map(async (elem) => await getCardTotalInfo(elem))
+    const result = Promise.map(
+      values,
+      async (elem) => await getCardTotalInfo(elem),
+      { concurrency: 100 }
     );
-
+    /*   const result = await Promise.all(
+      values.map(async (elem) => await getCardTotalInfo(elem))
+    ); */
     return result;
   } catch (error) {
     console.error(error);
   }
 };
-export default getCards;
+export default getAllCards;

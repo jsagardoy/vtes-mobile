@@ -106,7 +106,6 @@ const CardInfo = ({ card }: Props) => {
       ) : null}
 
       <TextGroup title='Group' data={group} />
-      {/* <TextGroup title='Title:' data={title} /> */}
       <View style={styles.cardTextContainer}>
         <TextGroup data={card_text} />
       </View>
