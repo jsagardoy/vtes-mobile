@@ -17,7 +17,6 @@ const CardList = ({ cardType }: Props) => {
 
   const getData = async () => {
     setLoading(true);
-    /*  const value: Card[] = await getCards(cardType, start, end); */
     const value: Card[] = await getAllCards(cardType);
 
     setList(value.sort((a, b) => a.printed_name.localeCompare(b.printed_name)));

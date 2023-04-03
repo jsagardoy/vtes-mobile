@@ -21,10 +21,25 @@ const List = ({ list }: Props) => {
     setNewList(
       list.filter(
         (elem) =>
-          (elem.aka && elem.aka.includes(textValue)) ||
-          (elem.name && elem.name.includes(textValue)) ||
-          (elem.card_text && elem.card_text.includes(textValue)) ||
-          (elem.name_variants && elem.name_variants.includes(textValue))
+          elem &&
+          ((elem.aka !== undefined &&
+            elem.aka.length > 0 &&
+            elem.aka.some((aka: string) =>
+              aka.toLocaleLowerCase().includes(textValue.toLocaleLowerCase())
+            )) ||
+            (elem.name &&
+              elem.name
+                .toLocaleLowerCase()
+                .includes(textValue.toLocaleLowerCase())) ||
+            (elem.card_text &&
+              elem.card_text
+                .toLocaleLowerCase()
+                .includes(textValue.toLocaleLowerCase())) ||
+            (elem.name_variants &&
+              elem.name_variants.length > 0 &&
+              elem.name_variants.some((name) =>
+                name.toLocaleLowerCase().includes(textValue.toLocaleLowerCase())
+              )))
       )
     );
   };

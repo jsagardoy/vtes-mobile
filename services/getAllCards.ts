@@ -24,9 +24,7 @@ const getAllCards = async (cardType: CardType) => {
       async (elem) => await getCardTotalInfo(elem),
       { concurrency: 100 }
     );
-    /*   const result = await Promise.all(
-      values.map(async (elem) => await getCardTotalInfo(elem))
-    ); */
+ 
     return result;
   } catch (error) {
     console.error(error);

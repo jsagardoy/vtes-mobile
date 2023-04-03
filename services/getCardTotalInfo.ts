@@ -5,6 +5,7 @@ const cardMapping = (data: any) => {
     id: data.id,
     name: data.name,
     adv: data.adv,
+    aka:data.aka,
     printed_name: data.printed_name,
     _name: data._name,
     _set: data._set,
