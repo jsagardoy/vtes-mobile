@@ -1,22 +1,18 @@
-import {
-  FlatList,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { FlatList, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 
 import { Card } from '../types/data.types';
 import ListItem from './ListItem';
 import ListSearchBar from './ListSearchBar';
+import SearchModal from './SearchModal';
 
 interface Props {
   list: Card[];
+  cardType: string;
 }
-const List = ({ list }: Props) => {
+const List = ({ list, cardType }: Props) => {
   const [newList, setNewList] = useState<Card[]>(list);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const handleTextSearch = (textValue: string) => {
     setNewList(
       list.filter(
@@ -43,9 +39,19 @@ const List = ({ list }: Props) => {
       )
     );
   };
+  const handleShowSearchModal = () => {
+    setShowModal(!showModal);
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
   return (
     <SafeAreaView style={styles.container}>
-      <ListSearchBar textSearch={handleTextSearch} />
+      <ListSearchBar
+        textSearch={handleTextSearch}
+        showSearchModal={handleShowSearchModal}
+      />
+      <SearchModal showModal={showModal} handleCloseModal={handleCloseModal} cardType={cardType} />
       <FlatList
         data={newList}
         renderItem={({ item, index }) => (

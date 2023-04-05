@@ -34,7 +34,7 @@ const CardList = ({ cardType }: Props) => {
       <ActivityIndicator size='large' color='#6495ED' />
     </View>
   ) : (
-    <List list={list}/>
+      <List list={list} cardType={cardType} />
   );
 };
 const styles = StyleSheet.create({

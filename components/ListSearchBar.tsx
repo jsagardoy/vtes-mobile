@@ -6,14 +6,16 @@ import { AntDesign } from '@expo/vector-icons';
 
 interface Props {
   textSearch: (text: string) => void;
+  showSearchModal: () => void;
 }
-const ListSearchBar = ({ textSearch }: Props) => {
+const ListSearchBar = ({ textSearch, showSearchModal }: Props) => {
   const [search, setSearch] = useState<string>('');
 
   const handleOnChange = (newValue: string) => {
     setSearch(newValue);
     textSearch(newValue);
   };
+ 
 
   return (
     <View style={styles.container}>
@@ -32,7 +34,7 @@ const ListSearchBar = ({ textSearch }: Props) => {
         size={20}
         color='black'
         backgroundColor={'transparent'}
-        onPress={() => {}}
+        onPress={showSearchModal}
       />
     </View>
   );
