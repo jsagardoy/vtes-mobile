@@ -1,18 +1,21 @@
-import { FlatList, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
-import React, { useState } from 'react';
+import { FlatList, SafeAreaView, StatusBar, StyleSheet } from 'react-native'
+import React, { useContext, useState } from 'react'
 
-import { Card } from '../types/data.types';
-import ListItem from './ListItem';
-import ListSearchBar from './ListSearchBar';
-import SearchModal from './SearchModal';
+import { Card } from '../types/data.types'
+import ListItem from './ListItem'
+import ListSearchBar from './ListSearchBar'
+import SearchModal from './SearchModal'
+import useSearchData from '../hooks/useSearchData'
 
 interface Props {
-  list: Card[];
-  cardType: string;
+  list: Card[]
+  cardType: string
 }
 const List = ({ list, cardType }: Props) => {
-  const [newList, setNewList] = useState<Card[]>(list);
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [newList, setNewList] = useState<Card[]>(list)
+  const [showModal, setShowModal] = useState<boolean>(false)
+  const { searchData } = useSearchData()
+
   const handleTextSearch = (textValue: string) => {
     setNewList(
       list.filter(
@@ -37,21 +40,53 @@ const List = ({ list, cardType }: Props) => {
                 name.toLocaleLowerCase().includes(textValue.toLocaleLowerCase())
               )))
       )
-    );
-  };
+    )
+  }
+
   const handleShowSearchModal = () => {
-    setShowModal(!showModal);
-  };
+    setShowModal(!showModal)
+  }
   const handleCloseModal = () => {
-    setShowModal(false);
-  };
+    setShowModal(false)
+  }
+
+  const hasElement = (data: string, element: string[]) => {
+    if (element) {
+      return element.some((elem) => {
+        if (elem.toUpperCase() === elem) {
+          return elem === data || elem === data.toUpperCase()
+        } else {
+          return elem === data
+        }
+      })
+    } else {
+      return false
+    }
+  }
+
+  const handleSearch = () => {
+    const data: Card[] = list.filter((card: Card) =>
+      searchData.disciplines.length > 0
+        ? searchData.disciplines.every((elem) =>
+            hasElement(elem, card.disciplines)
+          )
+        : card
+    )
+
+    setNewList(data)
+  }
   return (
     <SafeAreaView style={styles.container}>
       <ListSearchBar
         textSearch={handleTextSearch}
         showSearchModal={handleShowSearchModal}
       />
-      <SearchModal showModal={showModal} handleCloseModal={handleCloseModal} cardType={cardType} />
+      <SearchModal
+        showModal={showModal}
+        handleCloseModal={handleCloseModal}
+        cardType={cardType}
+        handleSearch={handleSearch}
+      />
       <FlatList
         data={newList}
         renderItem={({ item, index }) => (
@@ -61,8 +96,8 @@ const List = ({ list, cardType }: Props) => {
         onEndReachedThreshold={3}
       />
     </SafeAreaView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -73,6 +108,6 @@ const styles = StyleSheet.create({
   item: {
     flex: 1,
   },
-});
+})
 
-export default List;
+export default List

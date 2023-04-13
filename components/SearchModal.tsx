@@ -1,15 +1,22 @@
-import { Modal, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { Modal, StatusBar, StyleSheet, Text, View } from 'react-native'
 
-import { AntDesign } from '@expo/vector-icons';
-import CryptSearchContent from './CryptSearchContent';
-import React from 'react';
+import { AntDesign } from '@expo/vector-icons'
+import { Card } from '../types/data.types'
+import CryptSearchContent from './CryptSearchContent'
+import React from 'react'
 
 interface Props {
-  showModal: boolean;
-  handleCloseModal: () => void;
-  cardType: string;
+  showModal: boolean
+  handleCloseModal: () => void
+  cardType: string
+  handleSearch: () => void
 }
-const SearchModal = ({ showModal, handleCloseModal, cardType }: Props) => {
+const SearchModal = ({
+  showModal,
+  handleCloseModal,
+  cardType,
+  handleSearch,
+}: Props) => {
   return (
     <Modal
       animationType='slide'
@@ -29,7 +36,7 @@ const SearchModal = ({ showModal, handleCloseModal, cardType }: Props) => {
         </View>
 
         {cardType.toLowerCase() === 'crypt' ? (
-          <CryptSearchContent />
+          <CryptSearchContent handleSearch={handleSearch} />
         ) : (
           <View>
             <Text>library</Text>
@@ -37,13 +44,12 @@ const SearchModal = ({ showModal, handleCloseModal, cardType }: Props) => {
         )}
       </View>
     </Modal>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     marginTop: StatusBar.currentHeight + 50,
-    /* justifyContent: 'center', */
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
     flex: 1,
@@ -73,5 +79,5 @@ const styles = StyleSheet.create({
     maxWidth: 400,
     minWidth: 400,
   },
-});
-export default SearchModal;
+})
+export default SearchModal
