@@ -1,11 +1,11 @@
 import { FlatList, SafeAreaView, StatusBar, StyleSheet } from 'react-native'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { Card } from '../types/data.types'
 import ListItem from './ListItem'
 import ListSearchBar from './ListSearchBar'
 import SearchModal from './SearchModal'
-import useSearchData from '../hooks/useSearchData'
+import useSearchData from '../hooks/useSearchCryptData'
 
 interface Props {
   list: Card[]
@@ -14,7 +14,7 @@ interface Props {
 const List = ({ list, cardType }: Props) => {
   const [newList, setNewList] = useState<Card[]>(list)
   const [showModal, setShowModal] = useState<boolean>(false)
-  const { searchData } = useSearchData()
+  const { searchCryptData } = useSearchData()
 
   const handleTextSearch = (textValue: string) => {
     setNewList(
@@ -66,15 +66,18 @@ const List = ({ list, cardType }: Props) => {
 
   const handleSearch = () => {
     const data: Card[] = list.filter((card: Card) =>
-      searchData.disciplines.length > 0
-        ? searchData.disciplines.every((elem) =>
+      searchCryptData.disciplines.length > 0
+        ? searchCryptData.disciplines.every((elem) =>
             hasElement(elem, card.disciplines)
           )
         : card
     )
-
     setNewList(data)
   }
+  useEffect(() => {
+    handleSearch()
+  }, [searchCryptData])
+
   return (
     <SafeAreaView style={styles.container}>
       <ListSearchBar
@@ -85,7 +88,6 @@ const List = ({ list, cardType }: Props) => {
         showModal={showModal}
         handleCloseModal={handleCloseModal}
         cardType={cardType}
-        handleSearch={handleSearch}
       />
       <FlatList
         data={newList}

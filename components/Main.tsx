@@ -1,12 +1,12 @@
-import Crypt from './Crypt';
-import Home from './Home';
-import Library from './Library';
-import { ListContextProvider } from '../context/listContext';
-import { NavigationContainer } from '@react-navigation/native';
-import React from 'react';
-import { SearchDataContextProvider } from '../context/searchContext';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-const Stack = createNativeStackNavigator();
+import Crypt from './Crypt'
+import Home from './Home'
+import Library from './Library'
+import { ListContextProvider } from '../context/listContext'
+import { NavigationContainer } from '@react-navigation/native'
+import React from 'react'
+import { SearchDataContextProvider } from '../context/searchCryptContext'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+const Stack = createNativeStackNavigator()
 
 const Main = () => {
   return (
@@ -21,7 +21,7 @@ const Main = () => {
         </NavigationContainer>
       </SearchDataContextProvider>
     </ListContextProvider>
-  );
-};
+  )
+}
 
-export default Main;
+export default Main

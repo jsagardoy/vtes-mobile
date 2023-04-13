@@ -1,10 +1,10 @@
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 
 import { Card } from '../types/data.types'
 
-export type SearchData = {
-  searchData: Card
-  setSearchData: (value: Card) => void
+export type SearchCryptData = {
+  searchCryptData: Card
+  setSearchCryptData: React.Dispatch<React.SetStateAction<Card>>
 }
 
 const initial: Card = {
@@ -42,14 +42,15 @@ const initial: Card = {
   is_evolution: false,
 }
 
-const Context = createContext<SearchData>({
-  searchData: initial,
-  setSearchData: (value: Card) => {},
+const Context = createContext<SearchCryptData>({
+  searchCryptData: initial,
+  setSearchCryptData: (value: Card) => {},
 })
 
 export const SearchDataContextProvider = ({ children }) => {
-  const [searchData, setSearchData] = useState<Card>(initial)
-  const value = { searchData, setSearchData }
+  const [searchCryptData, setSearchCryptData] = useState<Card>(initial)
+
+  const value = { searchCryptData, setSearchCryptData }
   return <Context.Provider value={value}>{children}</Context.Provider>
 }
 export default Context

@@ -1,26 +1,15 @@
-import {
-  Button,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-} from 'react-native'
-import React, { useEffect, useMemo, useState } from 'react'
+import { Button, StyleSheet, TouchableHighlight, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import {
   getDisciplineIcon,
   isSuperior,
 } from '../transformations/getDisciplineIcon'
 
-import { Card } from '../types/data.types'
 import { disciplines_inf } from '../services/getAllDisciplines'
-import useSearchData from '../hooks/useSearchData'
+import useSearchData from '../hooks/useSearchCryptData'
 
-interface Props {
-  handleSearch: () => void
-}
-
-const CryptSearchContent = ({ handleSearch }: Props) => {
-  const { searchData, setSearchData } = useSearchData()
+const CryptSearchContent = () => {
+  const { searchCryptData, setSearchCryptData } = useSearchData()
   const initialDisciplines = disciplines_inf.map((elem) => ({
     name: elem,
     value: 0,
@@ -39,8 +28,7 @@ const CryptSearchContent = ({ handleSearch }: Props) => {
       .map((elem) => elem.name.toLocaleUpperCase())
 
     const disList = [...listDiscInf, ...listDiscSup]
-    const newSearch = { ...searchData, disciplines: disList }
-    setSearchData(newSearch)
+    setSearchCryptData((prev) => ({ ...prev, disciplines: disList }))
   }
 
   const handleDiscClick = (name: string) => {
@@ -56,13 +44,13 @@ const CryptSearchContent = ({ handleSearch }: Props) => {
   }
 
   const isDiscipline = (disc: string) => {
-    const index = searchData.disciplines.findIndex(
+    const index = searchCryptData.disciplines.findIndex(
       (elem) => elem.toLowerCase() === disc.toLowerCase()
     )
     if (index === -1) {
       return 0
     }
-    if (isSuperior(searchData.disciplines[index])) {
+    if (isSuperior(searchCryptData.disciplines[index])) {
       return 2
     } else {
       return 1
@@ -75,6 +63,11 @@ const CryptSearchContent = ({ handleSearch }: Props) => {
       value: isDiscipline(elem.name),
     }))
     setDiscList(newDiscList)
+  }
+  const handleClear = () => {
+    setDiscList(initialDisciplines)
+    const newSearch = { ...searchCryptData, disciplines: [] }
+    setSearchCryptData(newSearch)
   }
 
   useEffect(() => {
@@ -98,7 +91,9 @@ const CryptSearchContent = ({ handleSearch }: Props) => {
           </TouchableHighlight>
         ))}
       </View>
-      <Button title='Search' onPress={() => handleSearch()} />
+      <View>
+        <Button title='Clear' onPress={() => handleClear()} />
+      </View>
     </View>
   )
 }

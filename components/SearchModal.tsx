@@ -9,14 +9,8 @@ interface Props {
   showModal: boolean
   handleCloseModal: () => void
   cardType: string
-  handleSearch: () => void
 }
-const SearchModal = ({
-  showModal,
-  handleCloseModal,
-  cardType,
-  handleSearch,
-}: Props) => {
+const SearchModal = ({ showModal, handleCloseModal, cardType }: Props) => {
   return (
     <Modal
       animationType='slide'
@@ -36,7 +30,7 @@ const SearchModal = ({
         </View>
 
         {cardType.toLowerCase() === 'crypt' ? (
-          <CryptSearchContent handleSearch={handleSearch} />
+          <CryptSearchContent />
         ) : (
           <View>
             <Text>library</Text>
