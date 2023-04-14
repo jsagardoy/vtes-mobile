@@ -1,6 +1,7 @@
 import { Button, StyleSheet, View } from 'react-native'
 
 import CryptDisciplinesContainer from './CryptDisciplinesContainer'
+import CryptGroupContainer from './CryptGroupContainer'
 import React from 'react'
 import { disciplines_inf } from '../services/getAllDisciplines'
 import useSearchCryptData from '../hooks/useSearchCryptData'
@@ -20,6 +21,7 @@ const CryptSearchContent = () => {
   return (
     <View style={styles.container}>
       <CryptDisciplinesContainer initialDiscList={initialDisciplines} />
+      <CryptGroupContainer/>
       <View>
         <Button title='Clear' onPress={() => handleClear()} />
       </View>

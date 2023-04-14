@@ -5,7 +5,6 @@ import {
   isSuperior,
 } from '../transformations/getDisciplineIcon'
 
-import { disciplines_inf } from '../services/getAllDisciplines'
 import useSearchCryptData from '../hooks/useSearchCryptData'
 
 interface Props {
