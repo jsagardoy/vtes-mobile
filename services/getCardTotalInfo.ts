@@ -1,11 +1,13 @@
-import { Card, Rulings, Scans, SetDescription } from '../types/data.types';
+import { Card, Rulings, Scans, SetDescription } from '../types/data.types'
+
+import { Storage } from 'expo-storage'
 
 const cardMapping = (data: any) => {
   return {
     id: data.id,
     name: data.name,
     adv: data.adv,
-    aka:data.aka,
+    aka: data.aka,
     printed_name: data.printed_name,
     _name: data._name,
     _set: data._set,
@@ -36,62 +38,63 @@ const cardMapping = (data: any) => {
     is_evolution: data.is_evolution ?? null,
     rulings: getRulings(data.rulings) ?? null,
     _i18n: data._i18n ?? null,
-  };
-};
+  }
+}
 
 const getRulings = (ruling: any) => {
   if (ruling) {
-    const list = Object.keys(ruling.links);
-    const values = Object.values(ruling.links);
+    const list = Object.keys(ruling.links)
+    const values = Object.values(ruling.links)
     const links = list.map((elem, index) => {
       return {
         name: elem,
         url: values[index] as string,
-      };
-    });
+      }
+    })
     return ruling
       ? {
           text: [...ruling.text],
           links: links,
         }
-      : null;
+      : null
   }
-  return null;
-};
+  return null
+}
 const getSets = (sets: Object) => {
-  const list = Object.keys(sets);
+  const list = Object.keys(sets)
   const newSets = list.map((set) => {
-    const details: SetDescription = { ...sets[set] };
+    const details: SetDescription = { ...sets[set] }
     return {
       name: set,
       description: details,
-    };
-  });
-  return newSets;
-};
+    }
+  })
+  return newSets
+}
 const getScans = (scans: Object) => {
-  const list = Object.keys(scans);
+  const list = Object.keys(scans)
   const newScans: Scans[] = list.map((scan) => ({
     name: scan,
     url: list[scan],
-  }));
-  return newScans;
-};
+  }))
+  return newScans
+}
 
 export const getCardTotalInfo = async (cardName: string): Promise<Card> => {
-  const url = `https://api.krcg.org/card/${cardName}`;
+  const url = `https://api.krcg.org/card/${cardName}`
   const props = {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
-  };
-  try {
-    const res = await fetch(url, props);
-    const data = await res.json();
-    const cardTotalInfo = cardMapping(data);
-    return cardTotalInfo;
-  } catch (error) {
-    console.error(error);
   }
-};
+  try {
+    const res = await fetch(url, props)
+    const data = await res.json()
+    const cardTotalInfo = cardMapping(data)
+
+    return cardTotalInfo
+  } catch (error) {
+    console.error(error)
+  }
+}
