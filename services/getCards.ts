@@ -1,6 +1,5 @@
 import { Card, CardType } from '../types/data.types'
 
-import { Storage } from 'expo-storage'
 import { getCardTotalInfo } from './getCardTotalInfo'
 
 const getCards = async (cardType: CardType, start: number, end: number) => {
@@ -17,8 +16,7 @@ const getCards = async (cardType: CardType, start: number, end: number) => {
   }
 
   try {
-    await Storage.remove({ key: 'getCards' })
-    const sessionData = await Storage.getItem({ key: 'getCards' })
+    let sessionData = null
     if (sessionData) {
       const result = JSON.parse(sessionData)
       return result
@@ -32,7 +30,6 @@ const getCards = async (cardType: CardType, start: number, end: number) => {
           .slice(start, end)
           .map(async (elem) => await getCardTotalInfo(elem))
       )
-      await Storage.setItem({ key: 'getCards', value: JSON.stringify(result) })
       return result
     }
   } catch (error) {

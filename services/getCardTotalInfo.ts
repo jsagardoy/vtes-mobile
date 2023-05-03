@@ -1,7 +1,5 @@
 import { Card, Rulings, Scans, SetDescription } from '../types/data.types'
 
-import { Storage } from 'expo-storage'
-
 const cardMapping = (data: any) => {
   return {
     id: data.id,
